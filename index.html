@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="nl">
-<head<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-58REWCHW8N"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-58REWCHW8N');
-</script>>
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Landal – Contact</title>
@@ -256,6 +248,18 @@
   .stat-bar-fill { height: 100%; background: var(--teal); border-radius: 8px; transition: width .4s; }
   .stat-total { font-size: 12px; color: var(--muted); margin-top: 14px; text-align: center; }
 </style>
+
+<!-- ══ GOOGLE ANALYTICS 4 ══════════════════════════════════════════
+     Vervang G-XXXXXXXX hieronder door jouw eigen Measurement ID.
+     Aanmaken via: analytics.google.com → Admin → Property maken → Web
+     ════════════════════════════════════════════════════════════════ -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXX');
+</script>
 </head>
 <body>
 <div id="shell">
@@ -473,6 +477,10 @@ function track(key, val) {
   if (!s[key]) s[key] = {};
   s[key][val] = (s[key][val] || 0) + 1;
   saveStats(s);
+  // Google Analytics 4 event
+  if (typeof gtag !== 'undefined') {
+    gtag('event', key + '_' + val, { event_category: 'prototype', event_label: val });
+  }
 }
 function clearStats() {
   localStorage.removeItem('lnd_stats');
